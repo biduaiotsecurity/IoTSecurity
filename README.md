@@ -49,7 +49,7 @@ SDK已经做好混淆规则。
 		// 必须在super之后
 		// 参数1 ： ctx
 		// 参数2 ： 回调服务所在的包名,就是最终app的包名。
-		// 参数3 ： 回调服务名
+		// 参数3 ： 回调服务名,需要自己创建service
         IoTSecurity.onApplicationCreate(getApplicationContext(), getApplicationContext().getPackageName(),
                 MyResultService.class.getName());
     }
@@ -61,6 +61,19 @@ SDK已经做好混淆规则。
     }
 ```
 
+### 回调
+需要自己建立一个service，继承自`DefaultResultService `。
+```
+public class MyResultService extends DefaultResultService {
+
+    //所有功能是否已经准备好。
+    @Override
+    public void onInitialized(boolean b) {
+    	// 在这里之前，可以一直转Loading...
+        Log.i("onInitialized", "onInitialized");
+    }
+}
+```
 
 
 ### 调用方法。
@@ -172,20 +185,4 @@ public class IoTSecurity {
 ```
 
 
-### 回调
-需要自己建立一个service，继承自`DefaultResultService `。
-```
-public class MyResultService extends DefaultResultService {
 
-    //所有功能是否已经准备好。
-    @Override
-    public void onInitialized(boolean b) {
-    	// 在这里之前，可以一直转Loading...
-        Log.i("onInitialized", "onInitialized");
-    }
-}
-```
-
-## 实验结果
-### onInitialized
-根据传递来的bool值，判断是否初始化完成，在这之前，界面可以先转个loading之类的。
