@@ -187,4 +187,4 @@ public class MyResultService extends DefaultResultService {
 
 ## 实验结果
 ### onInitialized
-根据传递来的bool指，判断是否初始化完成，在这之前，界面可以先转个loading之类的。
+根据传递来的bool值，判断是否初始化完成，在这之前，界面可以先转个loading之类的。
