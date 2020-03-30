@@ -1,8 +1,9 @@
 # 百度IoTSecurity SDK接入文档
 
- [TOC] 
+## 介绍
+百度天工是融合了百度ABC（AI、Big Data、Cloud）的“一站式、全托管”智能物联网平台，其中物接入IoT Core为广大厂商提供设备接入、通信、管理服务，实现设备入云。在此服务基础上，IoTSecurity SDK提供“云-管-端”一体的安全防护方案，实现设备与云端之间的安全可靠双向连接，保障设备入云安全。
 
-## 前置条件
+## 接入前置条件
 1、请先注册 登录百度云
 
 2、进入物接入IoT Core: https://console.bce.baidu.com/iot2/core/landing
