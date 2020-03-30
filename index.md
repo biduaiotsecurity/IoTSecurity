@@ -90,36 +90,6 @@ public class IoTSecurity {
      public static boolean isInitialized()
 
      /**
-     * dns修复
-     * 使用该接口，要满足下面的两个条件之中的一个。
-     * 1 集成xdns，必须得有系统权限。
-     * 2 集成safehttp，如果全系统生效，得有系统权限，如果单个app集成，可以不需要系统权限。
-     * xdns文档：https://baidutvsafe.github.io/xdns
-     * safehttp文档：https://baidutvsafe.github.io/safehttp
-     * */
-     public static boolean fixDns()
-
-     /**
-     * 停止dns修复
-     * 使用该接口，要满足下面的两个条件之中的一个。
-     * 1 集成xdns，必须得有系统权限。
-     * 2 集成safehttp，如果全系统生效，得有系统权限，如果单个app集成，可以不需要系统权限。
-     * xdns文档：https://baidutvsafe.github.io/xdns
-     * safehttp文档：https://baidutvsafe.github.io/safehttp
-     * */
-     public static boolean stopDns()
-     
-     /**
-     * 查看dns修复状态
-     * 使用该接口，要满足下面的两个条件之中的一个。
-     * 1 集成xdns，必须得有系统权限。
-     * 2 集成safehttp，如果全系统生效，得有系统权限，如果单个app集成，可以不需要系统权限。
-     * xdns文档：https://baidutvsafe.github.io/xdns
-     * safehttp文档：https://baidutvsafe.github.io/safehttp
-     * */
-     public static boolean checkDnsStatus()
-
-     /**
      * 获取设备id
      * @return 设备id
      */
@@ -206,36 +176,6 @@ public class IoTSecurity {
 ```
 public class MyResultService extends DefaultResultService {
 
-    //用于dns修复、停止、检测状态回调
-    @Override
-    public void onDnsBehaviourResult(String behaviour, boolean suc)
-        String resultTmp = "";
-        String operateTmp = "";
-        switch (behaviour) {
-            case START_BEHAVIOUR:
-                operateTmp = "启动修复dns";
-                resultTmp = suc ? "成功" : "失败";
-                break;
-            case STOP_BEHAVIOUR:
-                operateTmp = "停止修复dns";
-                resultTmp = suc ? "成功" : "失败";
-                break;
-            case CHECK_BEHAVIOUR:
-                operateTmp = "查询修复dns状态";
-                resultTmp = suc ? "开启" : "关闭";
-                break;
-        }
-        final String operate = operateTmp;
-        final String result = resultTmp;
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(MyResultService.this, operate + result, Toast.LENGTH_LONG).show();
-            }
-        });
-        Log.i("onDnsBehaviourResult", behaviour + " " + (suc ? "true" : "false"));
-    }
-
     //所有功能是否已经准备好。
     @Override
     public void onInitialized(boolean b) {
@@ -248,23 +188,3 @@ public class MyResultService extends DefaultResultService {
 ## 实验结果
 ### onInitialized
 根据传递来的bool指，判断是否初始化完成，在这之前，界面可以先转个loading之类的。
-
-### onDnsBehaviourResult
-dns修复、停止、检测状态回调
-```html
-/**
-* 启动修复dns成功
-*/
-06-05 11:00:58.848 19851-20155/? I/onDnsBehaviourResult: start_behaviour true
-
-/**
-* 停止修复dns成功
-*/
-06-05 11:01:47.848 19851-20155/? I/onDnsBehaviourResult: stop_behaviour true
-
-/**
-* 查询修复dns状态为启动
-*/
-06-05 11:01:25.848 19851-20155/? I/onDnsBehaviourResult: check_behaviour true
-
-```
