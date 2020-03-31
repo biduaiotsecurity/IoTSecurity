@@ -6,11 +6,11 @@
 ## 接入前置条件
 1、请先注册 登录百度云
 
-2、进入物接入IoT Core: https://console.bce.baidu.com/iot2/core/landing
+2、进入天工IoT Core: https://console.bce.baidu.com/iot2/core/landing
 
-3、创建项目
+3、创建实例，获取CoreID
 
-4、设置策略、身份、用户等信息
+4、创建设备模板，使用模板创建设备获取DeviceKey、DeviceSecret
 
 IoT Core文档: https://cloud.baidu.com/doc/IoTCore/s/pk7ophcd8
 
