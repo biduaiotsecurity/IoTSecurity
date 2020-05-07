@@ -28,6 +28,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
 }
 ```
 
@@ -55,7 +56,7 @@ SDK已经做好混淆规则。
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-	IoTSecurity.attachBaseContext(this);
+	    IoTSecurity.attachBaseContext(this);
     }
 ```
 
@@ -80,21 +81,6 @@ public class MyResultService extends DefaultResultService {
 public class IoTSecurity {
 
      /**
-     * 初始化接口
-     * @param broker 服务器地址，可以在物接入项目中可以看到，推荐使用ssl方式
-     * @param iotCoreId iotCore id，请与控制台内iotCore id保持一致
-     * @param clientId 设备id，可以通过generateClientId获取，或者自定义，建议与deviceKey保持一致
-     * @param deviceKey 连接deviceKey，物接入控制台创建用户后可以看到
-     * @param deviceSecret 连接deviceSecret，物接入控制台创建用户后可以看到
-     * @param publishTopic 发布的topic
-     * @param subscribeTopic 订阅的topic
-     * @param encryptType 密钥加密方式，这里可供选择的有：IoTSecurity.MD5、IoTSecurity.SHA256，推荐使用IoTSecurity.SHA256
-     * @throws Exception 初始化异常时，会抛出异常
-     */
-     init(String broker, String iotCoreId, String clientId, String deviceKey, String deviceSecret, 
-            String publishTopic,String subscribeTopic, @EncryptType String encryptType) throws Exception
-
-     /**
      * 查看是SDK是否准备就绪
      *
      * @return true 就绪
@@ -102,82 +88,114 @@ public class IoTSecurity {
      public static boolean isInitialized()
 
      /**
-     * 获取设备id
+     * 初始化方法
+     * @param broker 服务器地址，可以在物接入项目中可以看到，推荐使用ssl方式
+     * @param iotCoreId iotCore id，请与控制台内iotCore id保持一致
+     * @param clientId 设备id，可以通过generateClientId获取，或者自定义，建议与deviceKey保持一致
+     * @param deviceKey 连接deviceKey，物接入控制台创建用户后可以看到
+     * @param deviceSecret 连接deviceSecret，物接入控制台创建用户后可以看到
+     * @param encryptType 密钥加密方式，这里可供选择的有："MD5"、"SHA256"，推荐使用"SHA256"
+     * @throws MqttException 初始化异常时，会抛出异常
+     */
+     public static void init(String broker, String iotCoreId,
+                            String clientId, String deviceKey,
+                            String deviceSecret, String encryptType) throws MqttException
+
+     /**
+     * 同MqttClient.generateClientId方法，获取设备id，建议直接用deviceKey作为clientid
      * @return 设备id
      */
      public static String generateClientId()
 
      /**
-     * 设置连接保持时间
-     * @param interval 保持时间
+     * 同MqttAsyncClient的connect方法
+     * options中不需要填充username跟password，内部会根据init接口的参数计算出username跟password
      */
-     public static void setKeepaliveInterval(int interval)
+     public static IMqttToken connect(MqttConnectOptions options, Object userContext,
+                                     IMqttActionListener callback) throws MqttException
+
 
      /**
-     * 设置是否自动重连
-     * @param flag 是否重连
+     * 同MqttAsyncClient的subscribe方法
      */
-     public static void setAutoReconnect(boolean flag)
+    public static IMqttToken subscribe(String topicFilter, int qos, Object userContext,
+                                       IMqttActionListener callback) throws MqttException
+
 
      /**
-     * 设置重连时间间隔
-     * @param interval 时间间隔
+     * 同MqttAsyncClient的disconnect方法
      */
-     public static void setReconnectBaseInterval(int interval)
+    public static IMqttToken disconnect() throws MqttException 
 
      /**
-     * 设置离线后，缓存数据长度
-     * @param len 数据长度
+     * 同MqttAsyncClient的isConnected
      */
-     public static void setOfflineBufferLen(int len)
+    public static boolean isConnected()
 
      /**
-     * 是否清除会话
-     * @param flag 是否清除
+     * 同MqttAsyncClient的getClientId
      */
-     public static void setCleanSession(boolean flag) 
+    public static String getClientId()
 
      /**
-     * 设置LastWill消息
-     * @param topic LastWill消息topic
-     * @param msg LastWill消息内容
-     * @param isRetain 设置是否保留
+     * 同MqttAsyncClient的getServerURI
      */
-     public static void setLastWill(String topic, String msg, boolean isRetain)
-
+    public static String getServerURI()
+     
      /**
-     * 设置消息接受者
-     * @param messageProcessor 消息接受者
+     * 同MqttAsyncClient的getCurrentServerURI
      */
-     public static void setMessageProcessor(RawMessageProcessor messageProcessor)
-
+    public static String getCurrentServerURI()
+     
      /**
-     * 设置连接事件接受者
-     * @param notifier 连接事件接受者
+     * 同MqttAsyncClient的unsubscribe
      */
-     public static void setMqttClientEventNotifier(MqttClientEventNotifier notifier) throws Exception
-
+    public static IMqttToken unsubscribe(String topicFilter, Object userContext, IMqttActionListener callback) throws MqttException
+     
      /**
-     * mqtt连接
+     * 同MqttAsyncClient的setCallback
      */
-     public static Future<Void> connect()
-
+    public static void setCallback(MqttCallback callback)
+     
      /**
-     * 当前连接状态
-     * @return 连接状态
+     * 同MqttAsyncClient的publish
      */
-     public static boolean isConnected()
-
+    public static IMqttDeliveryToken publish(String topic, byte[] payload, int qos, boolean retained, Object userContext, IMqttActionListener callback)throws MqttException
+     
      /**
-     * 发布消息
-     * @param rawMessage 发布的消息
+     * 同MqttAsyncClient的reconnect
      */
-     public static Future<Void> publishMessage(final byte[] rawMessage)
-
+    public static void reconnect() throws MqttException
+     
      /**
-     * 断开连接
+     * 同MqttAsyncClient的setBufferOpts
      */
-     public static void close()
+    public static void setBufferOpts(DisconnectedBufferOptions bufferOpts)
+     
+     /**
+     * 同MqttAsyncClient的getBufferedMessageCount
+     */
+    public static int getBufferedMessageCount()
+     
+     /**
+     * 同MqttAsyncClient的getBufferedMessage
+     */
+    public static MqttMessage getBufferedMessage(int bufferIndex)
+     
+     /**
+     * 同MqttAsyncClient的deleteBufferedMessage
+     */
+    public static void deleteBufferedMessage(int bufferIndex)
+     
+     /**
+     * 同MqttAsyncClient的getInFlightMessageCount
+     */
+    public static int getInFlightMessageCount()
+     
+     /**
+     * 同MqttAsyncClient的close
+     */
+    public static void close(boolean force) throws MqttException
 }
     
 ```
