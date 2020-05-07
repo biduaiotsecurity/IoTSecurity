@@ -118,84 +118,84 @@ public class IoTSecurity {
      /**
      * 同MqttAsyncClient的subscribe方法
      */
-    public static IMqttToken subscribe(String topicFilter, int qos, Object userContext,
+     public static IMqttToken subscribe(String topicFilter, int qos, Object userContext,
                                        IMqttActionListener callback) throws MqttException
 
 
      /**
      * 同MqttAsyncClient的disconnect方法
      */
-    public static IMqttToken disconnect() throws MqttException 
+     public static IMqttToken disconnect() throws MqttException 
 
      /**
      * 同MqttAsyncClient的isConnected
      */
-    public static boolean isConnected()
+     public static boolean isConnected()
 
      /**
      * 同MqttAsyncClient的getClientId
      */
-    public static String getClientId()
+     public static String getClientId()
 
      /**
      * 同MqttAsyncClient的getServerURI
      */
-    public static String getServerURI()
+     public static String getServerURI()
      
      /**
      * 同MqttAsyncClient的getCurrentServerURI
      */
-    public static String getCurrentServerURI()
+     public static String getCurrentServerURI()
      
      /**
      * 同MqttAsyncClient的unsubscribe
      */
-    public static IMqttToken unsubscribe(String topicFilter, Object userContext, IMqttActionListener callback) throws MqttException
+     public static IMqttToken unsubscribe(String topicFilter, Object userContext, IMqttActionListener callback) throws MqttException
      
      /**
      * 同MqttAsyncClient的setCallback
      */
-    public static void setCallback(MqttCallback callback)
+     public static void setCallback(MqttCallback callback)
      
      /**
      * 同MqttAsyncClient的publish
      */
-    public static IMqttDeliveryToken publish(String topic, byte[] payload, int qos, boolean retained, Object userContext, IMqttActionListener callback)throws MqttException
+     public static IMqttDeliveryToken publish(String topic, byte[] payload, int qos, boolean retained, Object userContext, IMqttActionListener callback)throws MqttException
      
      /**
      * 同MqttAsyncClient的reconnect
      */
-    public static void reconnect() throws MqttException
+     public static void reconnect() throws MqttException
      
      /**
      * 同MqttAsyncClient的setBufferOpts
      */
-    public static void setBufferOpts(DisconnectedBufferOptions bufferOpts)
+     public static void setBufferOpts(DisconnectedBufferOptions bufferOpts)
      
      /**
      * 同MqttAsyncClient的getBufferedMessageCount
      */
-    public static int getBufferedMessageCount()
+     public static int getBufferedMessageCount()
      
      /**
      * 同MqttAsyncClient的getBufferedMessage
      */
-    public static MqttMessage getBufferedMessage(int bufferIndex)
+     public static MqttMessage getBufferedMessage(int bufferIndex)
      
      /**
      * 同MqttAsyncClient的deleteBufferedMessage
      */
-    public static void deleteBufferedMessage(int bufferIndex)
+     public static void deleteBufferedMessage(int bufferIndex)
      
      /**
      * 同MqttAsyncClient的getInFlightMessageCount
      */
-    public static int getInFlightMessageCount()
+     public static int getInFlightMessageCount()
      
      /**
      * 同MqttAsyncClient的close
      */
-    public static void close(boolean force) throws MqttException
+     public static void close(boolean force) throws MqttException
 }
     
 ```
